@@ -8,6 +8,11 @@ namespace SpaUserControl.Domain.Models
     public class User
     {
         #region Ctor
+
+        protected User() 
+        {
+            //Entity Framework 
+        }
         public User(string name, string email)
         {
             this.Id = new Guid();
@@ -52,8 +57,8 @@ namespace SpaUserControl.Domain.Models
 
         public void Validate()
         {
-            AssertionConcern.AssertArgumentLength(this.Name, 3, 250, Errors.InvalidUserName);
-            EmailAssertionConcern.AssertIsValid(this.Name);
+            AssertionConcern.AssertArgumentLength(this.Name, 3, 60, Errors.InvalidUserName);
+            EmailAssertionConcern.AssertIsValid(this.Email);
             PasswordAssertionConcern.AssertIsValid(this.Password);
         }
         #endregion
