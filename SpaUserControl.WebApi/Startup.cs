@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
@@ -36,6 +33,16 @@ namespace SpaUserControl.WebApi
       
         public static void ConfigureWebApi(HttpConfiguration config)
         {
+            var formatters = config.Formatters;
+            formatters.Remove(formatters.XmlFormatter);
+
+            var jsonSettings = formatters.JsonFormatter.SerializerSettings;
+            jsonSettings.Formatting = Formatting.Indented;
+            jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling =
+                Newtonsoft.Json.PreserveReferencesHandling.Objects;
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 

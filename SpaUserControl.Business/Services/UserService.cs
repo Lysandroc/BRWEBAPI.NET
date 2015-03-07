@@ -29,7 +29,7 @@ namespace SpaUserControl.Business.Services
         public User GetByEmail(string email)
         {
             var user = _repository.Get(email);
-            if (user ==null)
+            if (user == null)
             {
                 throw new Exception(Errors.UserNotFound);
             }
@@ -38,7 +38,7 @@ namespace SpaUserControl.Business.Services
 
         public void Registrer(string name, string email, string password, string confirmpassword)
         {
-            var hasUser = GetByEmail(email);
+            var hasUser = _repository.Get(email);
             if (hasUser != null)
                 throw new Exception(Errors.DuplicateEmail);
 
